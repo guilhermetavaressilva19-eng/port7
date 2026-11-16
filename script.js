@@ -307,11 +307,20 @@ function mostrarEscolas() {
 
     conteudo.append(fase, titulo, historia);
 
-    // SEGUNDA FOTO: COLÉGIO ENERGIA ATIVA
+    // FOTO DO INTERAGINDO
+if (indice === 0) {
+  const foto = document.createElement("img");
+  foto.src = "interagindo.jpg";
+  foto.alt = "Guilherme no Interagindo";
+  foto.className = "foto-escola";
+  foto.loading = "lazy";
+  conteudo.appendChild(foto);
+}
+     // SEGUNDA FOTO: COLÉGIO ENERGIA ATIVA
     if (indice === 1) {
       const foto = document.createElement("img");
 
-      foto.src = "interagino.jpg";
+      foto.src = "energia-ativa.jpg";
       foto.alt = "Guilherme em uma apresentação escolar";
       foto.className = "foto-escola";
       foto.loading = "lazy";
