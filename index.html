@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#090909">
-  <meta name="description" content="Portfólio escolar de Guilherme Tavares, LEGACY 2026.">
+  <meta name="description" content="Portfólio escolar de Guilherme Tavares — LEGACY 2026.">
   <title>Guilherme Tavares | LEGACY 2026</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,12 +15,12 @@
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
-
 <body>
+
   <div id="progress"></div>
 
   <header class="header">
-    <a href="#inicio" class="logo">GT<span>.</span></a>
+    <a class="logo" href="#inicio">GT<span>.</span></a>
 
     <button id="menuToggle" class="menu-toggle"
       type="button" aria-label="Abrir menu"
@@ -43,10 +43,7 @@
       <div class="hero-content reveal">
         <span class="eyebrow">PORTFÓLIO ESCOLAR • 2026</span>
 
-        <h1>
-          GUILHERME
-          <span>TAVARES.</span>
-        </h1>
+        <h1>GUILHERME <span>TAVARES.</span></h1>
 
         <p class="hero-subtitle">
           Minha história, minhas experiências e tudo
@@ -63,11 +60,10 @@
         </div>
       </div>
 
-      <!-- FOTO DA INFÂNCIA À DIREITA -->
       <div class="hero-photo">
         <img
           src="interagindo.jpg"
-          alt="Fotografia da educação infantil no Interagindo"
+          alt="Lembrança da educação infantil no Interagindo"
           loading="eager"
         >
       </div>
@@ -119,9 +115,8 @@
         </h2>
 
         <p class="section-description reveal">
-          Minha caminhada desde o jardim de infância até
-          o Ensino Médio. Cada etapa trouxe mudanças,
-          aprendizados e lembranças.
+          Minha caminhada desde o jardim de infância
+          até o Ensino Médio.
         </p>
 
         <div id="timeline" class="timeline"></div>
@@ -139,16 +134,15 @@
         </h2>
 
         <p class="section-description reveal">
-          Aqui compartilho minhas 11 redações, nas quais
-          desenvolvi minhas ideias e opiniões sobre diferentes
-          assuntos da sociedade.
+          Onze redações sobre temas importantes
+          da sociedade contemporânea.
         </p>
 
         <div class="essay-toolbar">
           <input
             id="search"
             type="search"
-            placeholder="Pesquisar minhas redações..."
+            placeholder="Pesquisar redações..."
             aria-label="Pesquisar redações"
           >
           <span id="essayCount">11 redações</span>
@@ -162,22 +156,19 @@
     <section class="ending">
       <div class="container reveal">
         <span class="eyebrow">MEU PRÓXIMO CAPÍTULO</span>
-
-        <h2>
-          Minha história<br>
-          <em>continua.</em>
-        </h2>
+        <h2>Minha história<br><em>continua.</em></h2>
 
         <p>
           Tudo o que vivi até aqui faz parte de quem sou.
           Ainda tenho muito para aprender, viver e conquistar.
         </p>
 
-        <a href="#inicio" class="btn btn-gold">
+        <a class="btn btn-gold" href="#inicio">
           Voltar ao início ↑
         </a>
       </div>
     </section>
+
   </main>
 
   <footer class="footer">
@@ -188,7 +179,7 @@
     </div>
   </footer>
 
-  <!-- JANELA DE LEITURA DAS REDAÇÕES -->
+  <!-- JANELA DAS REDAÇÕES -->
   <dialog id="essayDialog" class="essay-dialog">
     <div class="dialog-header">
       <span id="dialogNumber" class="eyebrow"></span>
@@ -201,10 +192,10 @@
       <div id="dialogText" class="dialog-text"></div>
 
       <div id="editorArea" class="editor-area" hidden>
-        <label for="essayTitle">Título da redação</label>
+        <label for="essayTitle">Título</label>
         <input id="essayTitle" type="text">
 
-        <label for="essayText">Texto completo</label>
+        <label for="essayText">Redação completa</label>
         <textarea id="essayText" rows="14"></textarea>
       </div>
 
@@ -213,8 +204,10 @@
       <div class="dialog-actions">
         <button id="editEssay" class="btn btn-outline"
           type="button">Editar texto</button>
+
         <button id="saveEssay" class="btn btn-gold"
           type="button" hidden>Salvar</button>
+
         <button id="cancelDialog" class="btn btn-outline"
           type="button">Fechar</button>
       </div>
