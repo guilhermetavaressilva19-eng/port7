@@ -311,7 +311,7 @@ function mostrarEscolas() {
     if (indice === 1) {
       const foto = document.createElement("img");
 
-      foto.src = "energia-ativa.jpg";
+      foto.src = "interagino.jpg";
       foto.alt = "Guilherme em uma apresentação escolar";
       foto.className = "foto-escola";
       foto.loading = "lazy";
