@@ -56,7 +56,7 @@ Este site representa um pouco de tudo o que vivi até aqui. Minha história aind
   }
 ];
 
-/* REDAÇÕES COMPLETAS */
+/* AS 11 REDAÇÕES */
 
 const redacoes = [
   {
@@ -182,7 +182,7 @@ Para enfrentar esses desafios, o Governo Federal, por meio da Funai e dos órgã
   }
 ];
 
-/* SALVAMENTO LOCAL DAS EDIÇÕES */
+/* SALVAMENTO DAS EDIÇÕES NO NAVEGADOR */
 
 const STORAGE_KEY = "legacy2026_edicoes_v7";
 let redacaoAtual = null;
@@ -196,7 +196,9 @@ function carregarEdicoes() {
     redacoes.forEach(redacao => {
       const edicao = dados[redacao.id];
 
-      if (!edicao || typeof edicao !== "object") return;
+      if (!edicao || typeof edicao !== "object") {
+        return;
+      }
 
       if (typeof edicao.titulo === "string") {
         redacao.titulo = edicao.titulo;
@@ -234,7 +236,7 @@ function salvarEdicao(redacao) {
   }
 }
 
-/* CRIAR ELEMENTOS */
+/* FUNÇÃO AUXILIAR */
 
 function criarElemento(tag, classe = "", texto) {
   const elemento = document.createElement(tag);
@@ -250,7 +252,7 @@ function criarElemento(tag, classe = "", texto) {
   return elemento;
 }
 
-/* EXIBIR ESCOLAS */
+/* MOSTRAR AS ESCOLAS E A FOTO */
 
 function mostrarEscolas() {
   const timeline = document.getElementById("timeline");
@@ -295,12 +297,25 @@ function mostrarEscolas() {
     );
 
     conteudo.append(fase, titulo, historia);
+
+    // FOTO DO COLÉGIO ENERGIA ATIVA
+    if (indice === 1) {
+      const foto = document.createElement("img");
+
+      foto.src = "energia-ativa.jpg";
+      foto.alt = "Guilherme em uma apresentação escolar";
+      foto.className = "foto-escola";
+      foto.loading = "lazy";
+
+      conteudo.appendChild(foto);
+    }
+
     card.append(numero, conteudo);
     timeline.appendChild(card);
   });
 }
 
-/* EXIBIR REDAÇÕES */
+/* MOSTRAR AS REDAÇÕES */
 
 function mostrarRedacoes(filtro = "") {
   const grid = document.getElementById("essayGrid");
@@ -381,7 +396,7 @@ function mostrarRedacoes(filtro = "") {
   });
 }
 
-/* ABRIR REDAÇÃO */
+/* ABRIR UMA REDAÇÃO */
 
 function abrirRedacao(id) {
   const redacao = redacoes.find(r => r.id === id);
@@ -415,7 +430,7 @@ function abrirRedacao(id) {
   }
 }
 
-/* EDITAR REDAÇÃO */
+/* MODO DE EDIÇÃO */
 
 function modoEdicao(ativo) {
   document.getElementById("dialogTitle").hidden = ativo;
@@ -425,7 +440,7 @@ function modoEdicao(ativo) {
   document.getElementById("saveEssay").hidden = !ativo;
 }
 
-/* FECHAR REDAÇÃO */
+/* FECHAR A JANELA */
 
 function fecharRedacao() {
   const dialog = document.getElementById("essayDialog");
@@ -437,7 +452,7 @@ function fecharRedacao() {
   redacaoAtual = null;
 }
 
-/* SALVAR REDAÇÃO */
+/* SALVAR ALTERAÇÕES */
 
 function salvarRedacao() {
   const redacao = redacoes.find(
@@ -470,6 +485,7 @@ function salvarRedacao() {
   if (!salvarEdicao(redacao)) {
     redacao.titulo = tituloAnterior;
     redacao.texto = textoAnterior;
+
     status.textContent =
       "Não foi possível salvar neste navegador.";
     return;
@@ -509,126 +525,4 @@ function configurarMenu() {
   });
 
   nav.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-      nav.classList.remove("open");
-      botao.setAttribute("aria-expanded", "false");
-    });
-  });
-}
-
-/* ANIMAÇÕES */
-
-function configurarAnimacoes() {
-  const itens = document.querySelectorAll(".reveal");
-
-  if (!("IntersectionObserver" in window)) {
-    itens.forEach(item => {
-      item.classList.add("visible");
-    });
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    entradas => {
-      entradas.forEach(entrada => {
-        if (entrada.isIntersecting) {
-          entrada.target.classList.add("visible");
-          observer.unobserve(entrada.target);
-        }
-      });
-    },
-    { threshold: 0.08 }
-  );
-
-  itens.forEach(item => observer.observe(item));
-}
-
-/* BARRA DE PROGRESSO */
-
-function configurarProgresso() {
-  const barra = document.getElementById("progress");
-
-  if (!barra) return;
-
-  function atualizar() {
-    const maximo =
-      document.documentElement.scrollHeight -
-      window.innerHeight;
-
-    const percentual = maximo > 0
-      ? (window.scrollY / maximo) * 100
-      : 0;
-
-    barra.style.width = `${percentual}%`;
-  }
-
-  window.addEventListener(
-    "scroll",
-    atualizar,
-    { passive: true }
-  );
-
-  atualizar();
-}
-
-/* INICIALIZAÇÃO */
-
-function iniciarSite() {
-  carregarEdicoes();
-
-  mostrarEscolas();
-  mostrarRedacoes();
-
-  configurarMenu();
-  configurarAnimacoes();
-  configurarProgresso();
-
-  const pesquisa = document.getElementById("search");
-
-  if (pesquisa) {
-    pesquisa.addEventListener("input", () => {
-      mostrarRedacoes(pesquisa.value);
-    });
-  }
-
-  document.getElementById("closeDialog")
-    ?.addEventListener("click", fecharRedacao);
-
-  document.getElementById("cancelDialog")
-    ?.addEventListener("click", fecharRedacao);
-
-  document.getElementById("editEssay")
-    ?.addEventListener("click", () => {
-      modoEdicao(true);
-    });
-
-  document.getElementById("saveEssay")
-    ?.addEventListener("click", salvarRedacao);
-
-  const dialog = document.getElementById("essayDialog");
-
-  if (dialog) {
-    dialog.addEventListener("click", evento => {
-      if (evento.target === dialog) {
-        fecharRedacao();
-      }
-    });
-
-    dialog.addEventListener("close", () => {
-      redacaoAtual = null;
-    });
-  }
-
-  console.log("LEGACY 2026 iniciado.");
-  console.log(`${escolas.length} escolas.`);
-  console.log(`${redacoes.length} redações.`);
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener(
-    "DOMContentLoaded",
-    iniciarSite
-  );
-} else {
-  iniciarSite();
-}
+    link.addEventListener("click
