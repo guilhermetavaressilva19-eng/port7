@@ -1,5 +1,8 @@
 
-/* LEGACY 2026 — GUILHERME TAVARES */
+/* =========================================
+   LEGACY 2026 — GUILHERME TAVARES
+   SCRIPT COMPLETO
+========================================= */
 
 /* TRAJETÓRIA ESCOLAR */
 
@@ -56,7 +59,9 @@ Este site representa um pouco de tudo o que vivi até aqui. Minha história aind
   }
 ];
 
-/* AS 11 REDAÇÕES */
+/* =========================================
+   AS 11 REDAÇÕES COMPLETAS
+========================================= */
 
 const redacoes = [
   {
@@ -182,7 +187,9 @@ Para enfrentar esses desafios, o Governo Federal, por meio da Funai e dos órgã
   }
 ];
 
-/* SALVAMENTO DAS EDIÇÕES NO NAVEGADOR */
+/* =========================================
+   EDIÇÕES SALVAS NO NAVEGADOR
+========================================= */
 
 const STORAGE_KEY = "legacy2026_edicoes_v7";
 let redacaoAtual = null;
@@ -236,7 +243,7 @@ function salvarEdicao(redacao) {
   }
 }
 
-/* FUNÇÃO AUXILIAR */
+/* CRIAR ELEMENTOS HTML */
 
 function criarElemento(tag, classe = "", texto) {
   const elemento = document.createElement(tag);
@@ -252,7 +259,9 @@ function criarElemento(tag, classe = "", texto) {
   return elemento;
 }
 
-/* MOSTRAR AS ESCOLAS E A FOTO */
+/* =========================================
+   TRAJETÓRIA COM FOTO DO ENERGIA ATIVA
+========================================= */
 
 function mostrarEscolas() {
   const timeline = document.getElementById("timeline");
@@ -298,7 +307,7 @@ function mostrarEscolas() {
 
     conteudo.append(fase, titulo, historia);
 
-    // FOTO DO COLÉGIO ENERGIA ATIVA
+    // SEGUNDA FOTO: COLÉGIO ENERGIA ATIVA
     if (indice === 1) {
       const foto = document.createElement("img");
 
@@ -315,7 +324,9 @@ function mostrarEscolas() {
   });
 }
 
-/* MOSTRAR AS REDAÇÕES */
+/* =========================================
+   LISTAGEM E PESQUISA DAS REDAÇÕES
+========================================= */
 
 function mostrarRedacoes(filtro = "") {
   const grid = document.getElementById("essayGrid");
@@ -396,7 +407,9 @@ function mostrarRedacoes(filtro = "") {
   });
 }
 
-/* ABRIR UMA REDAÇÃO */
+/* =========================================
+   ABRIR REDAÇÃO COMPLETA
+========================================= */
 
 function abrirRedacao(id) {
   const redacao = redacoes.find(r => r.id === id);
@@ -430,7 +443,7 @@ function abrirRedacao(id) {
   }
 }
 
-/* MODO DE EDIÇÃO */
+/* EDITAR REDAÇÃO */
 
 function modoEdicao(ativo) {
   document.getElementById("dialogTitle").hidden = ativo;
@@ -440,7 +453,7 @@ function modoEdicao(ativo) {
   document.getElementById("saveEssay").hidden = !ativo;
 }
 
-/* FECHAR A JANELA */
+/* FECHAR REDAÇÃO */
 
 function fecharRedacao() {
   const dialog = document.getElementById("essayDialog");
@@ -507,7 +520,9 @@ function salvarRedacao() {
     "Redação salva neste navegador!";
 }
 
-/* MENU DO CELULAR */
+/* =========================================
+   MENU PARA CELULAR
+========================================= */
 
 function configurarMenu() {
   const botao = document.getElementById("menuToggle");
@@ -525,4 +540,146 @@ function configurarMenu() {
   });
 
   nav.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click
+    link.addEventListener("click", () => {
+      nav.classList.remove("open");
+      botao.setAttribute("aria-expanded", "false");
+    });
+  });
+}
+
+/* =========================================
+   ANIMAÇÕES AO ROLAR A PÁGINA
+========================================= */
+
+function configurarAnimacoes() {
+  const itens = document.querySelectorAll(".reveal");
+
+  if (!("IntersectionObserver" in window)) {
+    itens.forEach(item => {
+      item.classList.add("visible");
+    });
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    entradas => {
+      entradas.forEach(entrada => {
+        if (entrada.isIntersecting) {
+          entrada.target.classList.add("visible");
+          observer.unobserve(entrada.target);
+        }
+      });
+    },
+    {
+      threshold: 0.08
+    }
+  );
+
+  itens.forEach(item => observer.observe(item));
+}
+
+/* =========================================
+   BARRA DE PROGRESSO
+========================================= */
+
+function configurarProgresso() {
+  const barra = document.getElementById("progress");
+
+  if (!barra) return;
+
+  function atualizar() {
+    const maximo =
+      document.documentElement.scrollHeight -
+      window.innerHeight;
+
+    const percentual = maximo > 0
+      ? (window.scrollY / maximo) * 100
+      : 0;
+
+    barra.style.width = `${percentual}%`;
+  }
+
+  window.addEventListener(
+    "scroll",
+    atualizar,
+    { passive: true }
+  );
+
+  atualizar();
+}
+
+/* =========================================
+   INICIAR TODAS AS FUNÇÕES DO SITE
+========================================= */
+
+function iniciarSite() {
+  carregarEdicoes();
+
+  mostrarEscolas();
+  mostrarRedacoes();
+
+  configurarMenu();
+  configurarAnimacoes();
+  configurarProgresso();
+
+  /* PESQUISA */
+
+  const pesquisa = document.getElementById("search");
+
+  if (pesquisa) {
+    pesquisa.addEventListener("input", () => {
+      mostrarRedacoes(pesquisa.value);
+    });
+  }
+
+  /* FECHAR JANELA */
+
+  document.getElementById("closeDialog")
+    ?.addEventListener("click", fecharRedacao);
+
+  document.getElementById("cancelDialog")
+    ?.addEventListener("click", fecharRedacao);
+
+  /* EDITAR */
+
+  document.getElementById("editEssay")
+    ?.addEventListener("click", () => {
+      modoEdicao(true);
+    });
+
+  /* SALVAR */
+
+  document.getElementById("saveEssay")
+    ?.addEventListener("click", salvarRedacao);
+
+  /* FECHAR AO CLICAR FORA */
+
+  const dialog = document.getElementById("essayDialog");
+
+  if (dialog) {
+    dialog.addEventListener("click", evento => {
+      if (evento.target === dialog) {
+        fecharRedacao();
+      }
+    });
+
+    dialog.addEventListener("close", () => {
+      redacaoAtual = null;
+    });
+  }
+
+  console.log("LEGACY 2026 iniciado com sucesso.");
+  console.log(`${escolas.length} escolas carregadas.`);
+  console.log(`${redacoes.length} redações carregadas.`);
+}
+
+/* EXECUTAR QUANDO A PÁGINA ESTIVER PRONTA */
+
+if (document.readyState === "loading") {
+  document.addEventListener(
+    "DOMContentLoaded",
+    iniciarSite
+  );
+} else {
+  iniciarSite();
+}
