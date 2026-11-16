@@ -6,7 +6,7 @@
   --gold-light: #f0d6a4;
   --white: #f8f5ef;
   --muted: #aaa49a;
-  --border: rgba(216, 180, 119, 0.2);
+  --border: rgba(216, 180, 119, .2);
 }
 
 * {
@@ -45,11 +45,6 @@ a {
   display: none !important;
 }
 
-::selection {
-  background: var(--gold);
-  color: #111;
-}
-
 .container {
   width: min(1120px, 90%);
   margin: auto;
@@ -65,20 +60,20 @@ a {
   z-index: 200;
 }
 
-/* CABEÇALHO */
+/* MENU */
 
 .header {
-  height: 82px;
-  padding: 0 6%;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  height: 82px;
+  padding: 0 6%;
   z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(9, 9, 9, 0.92);
+  background: rgba(9, 9, 9, .93);
   backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--border);
 }
@@ -104,7 +99,7 @@ a {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  transition: color 0.3s;
+  transition: color .3s;
 }
 
 .header nav a:hover {
@@ -119,7 +114,7 @@ a {
   font-size: 29px;
 }
 
-/* PÁGINA INICIAL */
+/* INÍCIO */
 
 .hero {
   min-height: 100vh;
@@ -132,7 +127,7 @@ a {
   background:
     radial-gradient(
       ellipse at 80% 45%,
-      rgba(177, 122, 52, 0.18),
+      rgba(177, 122, 52, .18),
       transparent 55%
     ),
     linear-gradient(135deg, #090909, #181511);
@@ -144,11 +139,11 @@ a {
   top: 10%;
   width: 650px;
   height: 650px;
-  border: 1px solid rgba(216, 180, 119, 0.12);
+  border: 1px solid rgba(216, 180, 119, .12);
   border-radius: 50%;
   box-shadow:
-    0 0 0 90px rgba(216, 180, 119, 0.025),
-    0 0 0 180px rgba(216, 180, 119, 0.015);
+    0 0 0 90px rgba(216, 180, 119, .025),
+    0 0 0 180px rgba(216, 180, 119, .015);
   pointer-events: none;
 }
 
@@ -206,7 +201,7 @@ a {
   border-radius: 3px;
   font-size: 13px;
   font-weight: 700;
-  transition: 0.3s;
+  transition: .3s;
 }
 
 .btn-gold {
@@ -228,10 +223,10 @@ a {
 }
 
 .btn-outline:hover {
-  background: rgba(216, 180, 119, 0.1);
+  background: rgba(216, 180, 119, .1);
 }
 
-/* FOTO DA INFÂNCIA */
+/* FOTO NA PÁGINA INICIAL */
 
 .hero-photo {
   position: absolute;
@@ -247,8 +242,8 @@ a {
   border-radius: 16px;
   background: #201b16;
   box-shadow:
-    0 20px 55px rgba(0, 0, 0, 0.5),
-    0 0 40px rgba(216, 180, 119, 0.12);
+    0 20px 55px rgba(0, 0, 0, .5),
+    0 0 40px rgba(216, 180, 119, .12);
 }
 
 .hero-photo img {
@@ -344,9 +339,7 @@ a {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 5px;
-  transition:
-    border-color 0.3s,
-    transform 0.3s;
+  transition: border-color .3s, transform .3s;
 }
 
 .timeline-item:hover {
@@ -392,6 +385,19 @@ a {
   color: #aaa59c;
   max-width: 790px;
   white-space: pre-line;
+}
+
+/* FOTO DO ENERGIA ATIVA */
+
+.foto-escola {
+  display: block;
+  width: 100%;
+  max-width: 550px;
+  height: auto;
+  margin-top: 25px;
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, .35);
 }
 
 /* REDAÇÕES */
@@ -445,7 +451,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  transition: 0.3s;
+  transition: .3s;
 }
 
 .essay-card:hover {
@@ -531,7 +537,7 @@ a {
   letter-spacing: 1px;
 }
 
-/* JANELA DE LEITURA */
+/* JANELA DAS REDAÇÕES */
 
 .essay-dialog {
   width: min(850px, 94%);
@@ -546,7 +552,7 @@ a {
 }
 
 .essay-dialog::backdrop {
-  background: rgba(0, 0, 0, 0.88);
+  background: rgba(0, 0, 0, .88);
   backdrop-filter: blur(7px);
 }
 
@@ -634,9 +640,7 @@ a {
 .reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition:
-    opacity 0.75s ease,
-    transform 0.75s ease;
+  transition: opacity .75s ease, transform .75s ease;
 }
 
 .reveal.visible {
@@ -649,7 +653,7 @@ a {
   *::before,
   *::after {
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: .01ms !important;
   }
 
   .reveal {
